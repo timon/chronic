@@ -41,6 +41,7 @@ require 'chronic/ordinal'
 require 'chronic/separator'
 require 'chronic/time_zone'
 require 'chronic/blunt.rb'
+require 'chronic/translation.rb'
 
 require 'numerizer/numerizer'
 
