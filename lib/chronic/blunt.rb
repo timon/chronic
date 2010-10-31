@@ -15,7 +15,7 @@
 #
 
 require 'rubygems'
-require 'activesupport'
+require 'active_support'
 
 class Object
 	def tap
