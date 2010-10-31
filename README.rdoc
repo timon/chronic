@@ -4,38 +4,22 @@ http://chronic.rubyforge.org/
 
 by Tom Preston-Werner
 
-= WARNING:
-
-If you haven't noticed already, this is a fork of mojombo's (Tom's) stable
-chronic. I decided on my own volition that the 40-some (as reported by Github)
-network should be merged together. I got it to run, but quite haphazardly. There
-are a lot of new features (mostly undocumented except the git logs) so be a
-little flexible in your language passed to Chronic.
-
-Given that, if there is a bug, more than likely it's my own fault, not
-mojombo's and therefore bug reports should be sent to my fork, not his.
-
-Enjoy Chronic!
-
 == DESCRIPTION:
 
 Chronic is a natural language date/time parser written in pure Ruby. See below for the wide variety of formats Chronic will parse.
+
+This is a fork of stable version supported by evaryont, see
+http://github.com/evaryont/chronic
+
+This version supports english and russian queries. If you're interested in
+adding more translations, take a look at chronic/lib/translation.rb and
+examples in chronic/lib/languages/ folder.
 
 == INSTALLATION:
 
 Chronic can be installed via RubyGems:
 
   $ sudo gem install evaryont-chronic
-
-== CODE:
-
-Browse the code and get an RSS feed of the commit log at:
-
-  http://github.com/evaryont/chronic.git
-
-You can grab the code (and help with development) via git:
-
-  $ git clone git://github.com/evaryont/chronic.git
 
 == USAGE:
 
@@ -54,93 +38,33 @@ You can parse strings containing a natural language date using the Chronic.parse
   Chronic.parse('monday', :context => :past)
     #=> Mon Aug 21 12:00:00 PDT 2006
 
-  Chronic.parse('this tuesday 5:00')
-    #=> Tue Aug 29 17:00:00 PDT 2006
+More examples are shown on evaryont's readme:
+http://github.com/evaryont/chronic/blob/master/README.rdoc
 
-  Chronic.parse('this tuesday 5:00', :ambiguous_time_range => :none)
-    #=> Tue Aug 29 05:00:00 PDT 2006
+== RUSSIAN LANGUAGE SUPPORT:
 
-  Chronic.parse('may 27th', :now => Time.local(2000, 1, 1))
-    #=> Sat May 27 12:00:00 PDT 2000
+You can specify full or partial date:
 
-  Chronic.parse('may 27th', :guess => false)
-    #=> Sun May 27 00:00:00 PDT 2007..Mon May 28 00:00:00 PDT 2007
+  Chronic.parse('16 марта')
+   #=> Wed Mar 16 12:00:00 +0300 2011
 
-See Chronic.parse for detailed usage instructions.
+  Chronic.parse('январь 2011', :guess => false)
+   #=> Sat Jan 01 00:00:00 +0300 2011...Tue Feb 01 00:00:00 +0300 2011
 
-== EXAMPLES:
+Relative dates also work («сегодня», «завтра», «позавчера», «через неделю»).
 
-Chronic can parse a huge variety of date and time formats. Following is a small sample of strings that will be properly parsed. Parsing is case insensitive and will handle common abbreviations and misspellings.
+Weekdays are supported too:
 
-Simple
+   Time.now
+    #=> Sun Oct 31 23:17:48 +0300 2010
 
-  thursday
-  november
-  summer
-  friday 13:00
-  mon 2:35
-  4pm
-  6 in the morning
-  friday 1pm
-  sat 7 in the evening
-  yesterday
-  today
-  tomorrow
-  this tuesday
-  next month
-  last winter
-  this morning
-  last night
-  this second
-  yesterday at 4:00
-  last friday at 20:00
-  last week tuesday
-  tomorrow at 6:45pm
-  afternoon yesterday
-  thursday last week
+   Chronic.parse('прошлая среда')
+    #=> Wed Oct 27 12:00:00 +0400 2010
 
-Complex
+What's not here:
 
-  3 years ago
-  5 months before now
-  7 hours ago
-  7 days from now
-  1 week hence
-  in 3 hours
-  1 year ago tomorrow
-  3 months ago saturday at 5:00 pm
-  7 hours before tomorrow at noon
-  3rd wednesday in november
-  3rd month next year
-  3rd thursday this september
-  4th day last week
-
-Specific Dates
-
-  January 5
-  dec 25
-  may 27th
-  October 2006
-  oct 06
-  jan 3 2010
-  february 14, 2004
-  3 jan 2000
-  17 april 85
-  5/27/1979
-  27/5/1979
-  05/06
-  1979-05-27
-  Friday
-  5
-  4:00
-  17:00
-  0800
-
-Specific Times (many of the above with an added time)
-
-  January 5 at 7pm
-  1979-05-27 05:00:00
-  etc
+  * numeric words. While 'среда через 2 недели' will work, 'среда через две недели' won't
+  * phrases like 'бесчетверти пять' or 'пол-шестого'
 
 == TIME ZONES:
 
